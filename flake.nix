@@ -31,7 +31,9 @@
             };
         }
       )) // {
-
+        lib = {
+          inherit mkLatexTools;
+        };
       };
 
 }
