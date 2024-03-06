@@ -56,8 +56,14 @@ let
   latexShellInit = pkgs.writeTextFile {
     name = "latex_shell_init.sh";
     text = ''
-      mkdir -p .cache/texmf-var
-      export TEXMFHOME=.cache TEXMFVAR=.cache/texmf-var
+      if [[ -w /tmp ]]; then
+        latex_cache_dir=/tmp/latex_cache
+      else
+        latex_cache_dir=.latex-cache
+      fi
+
+      mkdir -p "''${latex_cache_dir}"/texmf-var
+      export TEXMFHOME="''${latex_cache_dir}" TEXMFVAR="''${latex_cache_dir}"/texmf-var
 
       # xelatex and pdflatex use FONTCONFIG_FILE to look up fonts
       export FONTCONFIG_FILE=${fontConfigFile}
