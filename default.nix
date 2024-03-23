@@ -30,6 +30,7 @@ let
     "cyrillic"
     "babel-bulgarian" "babel-english"
   ];
+  extraBuildDeps = params.extraBuildDeps or [];
   tex-megapkg = pkgs.texlive.combine (lib.getAttrs texPkgs pkgs.texlive);
   fontPkgs = params.fontPkgs or [
     pkgs.noto-fonts
@@ -80,7 +81,7 @@ let
     pkgs.ncurses
     pkgs.inkscape
     latexBuilderScript
-  ];
+  ] // extraBuildDeps;
   buildLatex = { pkgname, latexFiles, src }: pkgs.stdenvNoCC.mkDerivation rec {
     name = pkgname;
     inherit src;
