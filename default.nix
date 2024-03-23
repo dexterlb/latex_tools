@@ -81,7 +81,7 @@ let
     pkgs.ncurses
     pkgs.inkscape
     latexBuilderScript
-  ] // extraBuildDeps;
+  ] ++ extraBuildDeps;
   buildLatex = { pkgname, latexFiles, src }: pkgs.stdenvNoCC.mkDerivation rec {
     name = pkgname;
     inherit src;
