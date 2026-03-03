@@ -35,7 +35,9 @@ let
   fontPkgs = params.fontPkgs or [
     pkgs.noto-fonts
     pkgs.stix-two
-    (pkgs.nerdfonts.override { fonts = [ "DroidSansMono" ]; })
+
+    pkgs.nerd-fonts._0xproto
+    pkgs.nerd-fonts.droid-sans-mono
   ];
   fontConfigFile = pkgs.makeFontsConf {
     fontDirectories = fontPkgs;

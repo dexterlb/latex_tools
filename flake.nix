@@ -14,12 +14,22 @@
         let
           pkgs = nixpkgs.legacyPackages.${system};
           latexTools = mkLatexTools { inherit pkgs nixpkgs; };
+          fontPkgs = [
+            pkgs.noto-fonts
+          ];
+          fontConfigFile = pkgs.makeFontsConf {
+            fontDirectories = fontPkgs;
+          };
+          fontDir = pkgs.symlinkJoin {
+            name = "fonts";
+            paths = fontPkgs;
+          };
         in rec
         {
           packages = {};
           devShell = pkgs.mkShell
             {
-              packages = latexTools.deps;
+              packages = latexTools.deps ++ [ pkgs.pandoc ];
               LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
               shellHook = ''
                 . ${latexTools.latexShellInit}
